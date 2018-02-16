@@ -10,15 +10,25 @@ const blogpostSchema = mongoose.Schema({
 			lastName: {type: String, required: true}}
 });
 
+blogpostSchema.virtual('authorName').get(function() {
+	return `${this.author.firstName} ${this.author.lastName}`.trim()
+});
+
 // serialize method to return mongo-generated _id, title, content, and author's first name
 blogpostSchema.methods.serialize = function() {
 	return {
 		id: this._id,
 		title: this.title,
 		content: this.content,
-		author: {firstName: this.author.firstName, lastName: this.author.lastName}
+		author: this.authorName
 	};
 }
+
+
+
+
+
+
 
 const Blogpost = mongoose.model('Blogpost', blogpostSchema);
 
