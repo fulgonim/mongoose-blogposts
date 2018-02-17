@@ -10,6 +10,7 @@ const blogpostSchema = mongoose.Schema({
 			lastName: {type: String, required: true}}
 });
 
+
 blogpostSchema.virtual('authorName').get(function() {
 	return `${this.author.firstName} ${this.author.lastName}`.trim()
 });

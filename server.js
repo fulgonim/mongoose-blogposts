@@ -1,6 +1,8 @@
 'use strict';
 
 const express = require('express');
+
+//import body-parser to enable parsing of json in requests
 const bodyParser = require('body-parser');
 const jsonParser = bodyParser.json();
 const mongoose = require('mongoose');
