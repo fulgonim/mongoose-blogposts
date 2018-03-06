@@ -84,10 +84,41 @@ describe('Mongoose Blogposts API resource', function() {
 					expect(res.body.blogposts).to.have.length.of.at.least(1);
 					return Blogpost.count();
 				})
-				.then(function(count) {
-					expect(res.body.blogposts).to.have.length.of(count);
+				// .then(function(count) {
+				// 	expect(res.body.blogposts).to.have.length.of(count);
+				// });
+		});
+
+		it('should return blogposts with the right fields', function() {
+			//strategy:
+			// 1. make sure all blogposts are returned
+			// 2. make sure they have expected keys
+			let resBlogpost;
+			return chai.request(app)
+				.get('blog-posts')
+				.then(function(res) {
+					expect(res).to.have.status(200);
+					expect(res).to.be.json;
+					expect(res.body.blogposts).to.be.a('array');
+					expect(res.body.blogposts).to.have.length.of.at.least(1);
+
+					res.body.blogposts.forEach(function(blogpost) {
+						expect(blogpost).to.be.a('object');
+						expect(blogpost).to.include.keys(
+							'id', 'title', 'content', 'author');
+					});
+					resBlogpost = res.body.blogposts[0];
+					return Blogpost.findById(resBlogpost.id);
+				})
+				.then(function(blogpost) {
+					expect(resBlogpost.id).to.equal(blogpost.id);
+					expect(resBlogpost.title).to.equal(blogpost.title);
+					expect(resBlogpost.content).to.equal(blogpost.content);
+					expect(resBlogpost.author.firstName).to.equal(blogpost.author.firstName);
+					expect(resBlogpost.author.lastName).to.equal(blogpost.author.lastName);
 				});
 		});
+		// next 'it' block
 
 	});
 
