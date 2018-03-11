@@ -186,11 +186,37 @@ describe('Mongoose Blogposts API resource', function() {
 					expect(res).to.have.status(204);
 					return Blogpost.findById(updateData.id);
 				})
-		})
-	})
+				.then(function(blogpost) {
+					expect(blogpost.title).to.equal(updateData.title);
+					expect(blogpost.content).to.equal(updateData.content);
+				});
+		});
+	});
 
+	describe('DELETE endpoint', function() {
+		// strategy:
+		// 1. get a blogpost
+		// 2. make DELETE request for the blogpost's id
+		// 3. make sure status code is correct
+		// 4. prove blogpost doesn't exist in db anymore
+		it('should delete a blogpost by id', function() {
+			let blogpost;
 
-
+			return Blogpost
+				.findOne()
+				.then(function(_blogpost) {
+					blogpost = _blogpost;
+					return chai.request(app).delete(`/blog-posts/${blogpost.id}`);
+				})
+				.then(function(res) {
+					expect(res).to.have.status(204);
+					return Blogpost.findById(blogpost.id);
+				})
+				.then(function(_blogpost) {
+					expect(_blogpost).to.be.null;
+				});
+		});
+	});
 });
 
 
