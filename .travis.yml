@@ -2,3 +2,10 @@ language: node_js
 node_js: node
 services:
 - mongodb
+deploy:
+  provider: heroku
+  api_key:
+    secure: HWd81tVfXk6mq6pWnmq9j6DQN2TXgl5GRSxX8/SVSkJZ2wLFf4punqR/55KfPHstDPPGm/Uwg6u7AaDYJoYZJqWd3+pSbp/cYPC0NvWT+YElfYdiWDj9ndr3WMZWwWdlsRxxfsxNAZ8c3Um4MVEj8e6SbOH8foIk0rA5UMpjtoKWwqW+jScb2npoCgIGro/SNEyHmP+QUKa5hMcCus+jwQxa0k2pgtOU42KhY/YFrWQRkIEMaKhFJA8lY6z1QA4hFh0zcENuilIsZ4+SD015HG3AbA7VXnXS8+DMKQxaBz/6Zi0NfsGWUuj7ntm7Nwfyn6kmUR71azgfu51RCh3rnUXDr5Pu0YFGtQE8v4xjk6XniiZc6kKnb6U+7cCY36uWhPfAK3LDJ+/W3wwj/YM3TX9agb7Gvenf+aa+Lki+rOsUPhvdi+eRMcENoPpWxqv7Q+DDlqr7nwx3gGgNWOltiegr64mGHGDzZQK6tXgKI0Or53+HXRdQrlpl4WyHgXThOAUDAjNX/A9UEx+m7T91RcuTRgwCt2MsIM7v+IzIFycJFv8GgfKhdzwOgg2Nq0fDUi0UqC/Y+hC+vfXKI1fa2pHBCaEmVfGbaqpH0Pay4MEHIHegmOE/KAU78Uf72ecu4iG8v3ZfhiqZCPlz/OcMv0ZqlZC0gJHPK/CmMKcl69I=
+  app: limitless-castle-75618
+  on:
+    repo: fulgonim/mongoose-blogposts
